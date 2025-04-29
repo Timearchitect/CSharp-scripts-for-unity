@@ -1,10 +1,17 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
 public class PlayerController : MonoBehaviour
 {
+
+   
     public Rigidbody2D rb; //skapar variabeln/containern för ridgidbody2d
+    Vector3 ogScale;
     void Start()
     {
+        ogScale = gameObject.transform.localScale;
         rb = GetComponent<Rigidbody2D>(); //hämtar Componenten Rigidbody2D
     }
 
@@ -28,13 +35,13 @@ public class PlayerController : MonoBehaviour
                 */
         if (Input.GetAxis("Horizontal") > 0)
         {
-            transform.localScale = new Vector3(1,1,1);  // flip normal
+            transform.localScale = new Vector3( 1,1 );  // flip normal
             rb.AddForce(new Vector2(5.5f, 0.0f));
         }
 
         if (Input.GetAxis("Horizontal") < 0)
         {
-            transform.localScale = new Vector3(-1,1,1); //flip negativ (left)
+            transform.localScale = new Vector3( -1,1); //flip negativ (left)
             rb.AddForce(new Vector2(-5.5f, 0.0f));
 
         }
@@ -50,5 +57,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForceY(300);
         }
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print(collision.gameObject.tag);
     }
 }
