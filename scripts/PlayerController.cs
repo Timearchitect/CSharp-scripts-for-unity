@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
    
     public Rigidbody2D rb; //skapar variabeln/containern för ridgidbody2d
     Vector3 ogScale;
+    private bool grounded;
+
     void Start()
     {
         ogScale = gameObject.transform.localScale;
@@ -53,15 +55,20 @@ public class PlayerController : MonoBehaviour
             rb.AddForceY(5);
         }
 
-        if (Input.GetButtonDown("Jump")) // Hoppa
+        if (grounded && Input.GetButtonDown("Jump")) // Hoppa
         {
-            rb.AddForceY(300);
+            grounded = false;
+            rb.AddForceY(2000);
         }
     }
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         print(collision.gameObject.tag);
+        if (collision.gameObject.tag == "Untagged")
+        {
+            grounded = true;
+        }
     }
 }
