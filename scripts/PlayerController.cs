@@ -12,20 +12,32 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Debug.Log(  Input.GetAxis("Horizontal") );
+        /*
+                if(Input.GetAxis("Horizontal") > 0 ) // h�ger gammal
+                {
+                    rb.AddForceX(2);
+                }
 
-        if(Input.GetAxis("Horizontal") > 0 ) // h�ger gammal
+                if (Input.GetAxis("Horizontal") < 0) // v�nster gammal
+                {
+                    rb.AddForceX(-2);
+                }
+
+                if(Input.GetAxis("Horizontal")!=0)
+                    rb.AddForceX(Input.GetAxis("Horizontal")*2);
+                */
+        if (Input.GetAxis("Horizontal") > 0)
         {
-            rb.AddForceX(2);
+            transform.localScale = new Vector3(1,1,1);  // flip normal
+            rb.AddForce(new Vector2(5.5f, 0.0f));
         }
 
-        if (Input.GetAxis("Horizontal") < 0) // v�nster gammal
+        if (Input.GetAxis("Horizontal") < 0)
         {
-            rb.AddForceX(-2);
+            transform.localScale = new Vector3(-1,1,1); //flip negativ (left)
+            rb.AddForce(new Vector2(-5.5f, 0.0f));
+
         }
-
-
-        if(Input.GetAxis("Horizontal")!=0)
-            rb.AddForceX(Input.GetAxis("Horizontal")*2);
 
 
 
