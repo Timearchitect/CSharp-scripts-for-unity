@@ -37,13 +37,13 @@ public class PlayerController : MonoBehaviour
                 */
         if (Input.GetAxis("Horizontal") > 0)
         {
-            transform.localScale = new Vector3( 1,1 );  // flip normal
+            transform.localScale = new Vector3( ogScale.x,ogScale.y );  // flip normal
             rb.AddForce(new Vector2(5.5f, 0.0f));
         }
 
         if (Input.GetAxis("Horizontal") < 0)
         {
-            transform.localScale = new Vector3( -1,1); //flip negativ (left)
+            transform.localScale = new Vector3( -ogScale.x,ogScale.y); //flip negativ (left)
             rb.AddForce(new Vector2(-5.5f, 0.0f));
 
         }
