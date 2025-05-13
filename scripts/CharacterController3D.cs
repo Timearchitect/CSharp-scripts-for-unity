@@ -39,6 +39,8 @@ public class CharacterController3D : MonoBehaviour
 
         // Apply gravity
         velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime); // gravition
+
     }
     void Jump()
     {
