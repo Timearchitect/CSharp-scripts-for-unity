@@ -8,9 +8,10 @@ public class CharacterController3D : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
 
-    //private Vector2 moveInput; old complex 
+    private Vector2 moveInput;
     private Vector3 velocity;
     private bool isGrounded;
+    //private bool isJumping;
 
     void Start()
     {
@@ -21,33 +22,38 @@ public class CharacterController3D : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+
+    
+
         //easy :) 
         Vector3 move = transform.right * h + transform.forward * v;
-        controller.Move(move * speed * Time.deltaTime);
-
-        // Movement input old complex :(
-        // Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        //move = transform.TransformDirection(move);
-        //controller.Move(move * moveSpeed * Time.deltaTime);
+        velocity += move * speed * Time.deltaTime;
+  
 
         // Ground check
-        isGrounded = controller.isGrounded;
-        if (isGrounded && velocity.y < 0)
-            velocity.y = -2f; // Small push to keep grounded
-
-
+        if (controller.isGrounded)
+        {
+            isGrounded = true;
+            velocity.y += gravity * 0.1f;
+        }
+       
+        /* if (isGrounded && velocity.y < 0)
+             velocity.y = -2f; // Small push to keep grounded
+        */           
+ 
 
         // Apply gravity
         velocity.y += gravity * Time.deltaTime;
+       
         controller.Move(velocity * Time.deltaTime); // gravition
-
+        if (isGrounded && Input.GetButton("Jump"))
+            Jump();
+        
     }
     void Jump()
     {
-        if (isGrounded)
-        {
+            isGrounded = false;
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
     }
 
 
